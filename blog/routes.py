@@ -1,7 +1,9 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import render_template, url_for, request, redirect
 from blog import app, db
 from blog.models import User, Post
 from blog.forms import RegistrationForm, LoginForm
+from flask_login import login_user, logout_user
+
 
 @app.route("/")
 @app.route("/home") 
@@ -31,3 +33,13 @@ def register():
 @app.route("/registered")
 def registered():
   return render_template('registered.html', title='Thanks!')
+
+@app.route("/login",methods=['GET','POST'])
+def login():
+  form = LoginForm()
+  if request.method == 'POST':
+    user = User.query.filter_by(username=form.username.data).first()
+    login_user(user)
+    return redirect(url_for('home'))
+  return render_template('login.html',title='Login',form=form)
+

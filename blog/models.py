@@ -1,5 +1,7 @@
 from datetime import datetime
-from blog import db
+from blog import db, login_manager
+from flask_login import UserMixin
+
 
 class Post(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -12,7 +14,7 @@ class Post(db.Model):
   def __repr__(self):
     return f"Post('{self.date}', '{self.title}', '{self.content}')"
 
-class User(db.Model):
+class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(15), unique=True, nullable=False)
   email = db.Column(db.String(120), unique=True, nullable=False)
@@ -20,3 +22,7 @@ class User(db.Model):
 
   def __repr__(self):
     return f"User('{self.username}', '{self.email}')"
+
+@login_manager.user_loader
+def load_user(user_id):
+  return User.query.get(int(user_id))
