@@ -1,6 +1,7 @@
 from datetime import datetime
 from blog import db, login_manager
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Post(db.Model):
@@ -14,14 +15,27 @@ class Post(db.Model):
   def __repr__(self):
     return f"Post('{self.date}', '{self.title}', '{self.content}')"
 
-class User(UserMixin, db.Model):
+class User(UserMixin,db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(15), unique=True, nullable=False)
-  password = db.Column(db.String(120), nullable=False)
+  hashed_password=db.Column(db.String(128))
   post = db.relationship('Post', backref='user', lazy=True)
 
   def __repr__(self):
     return f"User('{self.username}', '{self.email}')"
+
+#adated from Grinberg(2014, 2018)
+  @property
+  def password(self):
+    raise AttributeError('Password is not readable.')
+
+  @password.setter
+  def password(self,password):
+    self.hashed_password=generate_password_hash(password)
+
+  def verify_password(self,password):
+    return check_password_hash(self.hashed_password,password)
+
 
 @login_manager.user_loader
 def load_user(user_id):
