@@ -5,7 +5,7 @@ from blog.models import User
 
 class RegistrationForm(FlaskForm):
   username = StringField('Username',validators=[DataRequired(),Regexp('^[a-z]{6,8}$',message='Your username should be between 6 and 8 characters long, and can only contain lowercase letters.'),EqualTo('confirm_username', message='Usernames do not match. Try again')])
-  confirm_username = StringField('Username',validators=[DataRequired()])
+  confirm_username = StringField('Confirm Username',validators=[DataRequired()])
   password = PasswordField('Password',validators=[DataRequired()])
   submit = SubmitField('Register')
 
