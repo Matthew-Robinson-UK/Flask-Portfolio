@@ -45,7 +45,7 @@ def login():
       login_user(user)
       flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
       return redirect(url_for('home'))
-    flash('Invalid username or password.')
+    flash('Incorrect email or password supplied.')
   return render_template('login.html',title='Login', form=form)
 
 

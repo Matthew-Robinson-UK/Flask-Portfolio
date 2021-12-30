@@ -14,7 +14,9 @@
         <a href="{{ url_for('register') }}" class="header">Register</a>
         <a href="{{ url_for('login') }}" class="header">Login</a>
         {% endif %}
+        {% if current_user.is_authenticated %}
         <a href="{{ url_for('logout') }}" class="header">Logout</a>
+        {% endif %}
     </div> 
     
     <div>

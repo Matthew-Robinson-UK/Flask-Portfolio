@@ -2,4 +2,4 @@ __pycache__
 .vscode
 venv
 .DS_Store
-.db_maker.py
+db_maker.py
