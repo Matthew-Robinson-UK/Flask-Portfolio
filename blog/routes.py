@@ -1,5 +1,7 @@
 from flask import render_template, url_for, request, redirect, flash
+import flask_login
 from blog import app, db
+from blog import forms
 from blog.models import User, Post
 from blog.forms import RegistrationForm, LoginForm
 from flask_login import login_user, logout_user, current_user
@@ -28,7 +30,9 @@ def register():
     db.session.add(user)
     db.session.commit()
     flash('Registration successful!')
-    return redirect(url_for('registered'))
+    flask_login.login_user(user)
+    flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
+    return redirect(url_for('home'))
   return render_template('register.html',title='Register',form=form)
 
 

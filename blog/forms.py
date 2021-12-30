@@ -5,8 +5,10 @@ from blog.models import User
 
 class RegistrationForm(FlaskForm):
   username = StringField('First name',validators=[DataRequired()])
-  email = StringField('Email',validators=[DataRequired(),Email(message='Please check your email is correct and try again', granular_message=False, check_deliverability=False, allow_smtputf8=True, allow_empty_local=False)])
-  password = PasswordField('Password',validators=[DataRequired(),Regexp('^[a-zA-Z0-9]{1,20}$',message='Your password should be up to 20 characters long, containing letters and numbers only.'),EqualTo('confirm_password', message='Passwords do not match. Please try again.')])
+  # https://wtforms.readthedocs.io/en/2.3.x/validators/
+  email = StringField('Email',validators=[DataRequired(),Email(message='Invalid email. Please check.', granular_message=False, check_deliverability=False, allow_smtputf8=True, allow_empty_local=False)])
+  # password must must be displayed as shown however password must also be betwenn 1 - 20 characters, error message is not accurate enough.
+  password = PasswordField('Password',validators=[DataRequired(),Regexp('^[a-zA-Z0-9]{1,20}$',message='Your password contain invalid characters.'),EqualTo('confirm_password', message='Passwords do not match. Please try again.')])
   confirm_password = PasswordField('Confirm Password',validators=[DataRequired()])
   submit = SubmitField('Register')
 
