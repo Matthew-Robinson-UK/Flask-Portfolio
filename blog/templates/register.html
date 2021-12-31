@@ -2,10 +2,10 @@
 {% block content %}
 <form method="POST" action="">
   {{ form.csrf_token }}
-  <p>{{ form.username.label }} {{ form.username }}</p>
-  <p>{{ form.email.label }} {{ form.email }}</p>
-  <p>{{ form.password.label }} {{ form.password }}</p>
-  <p>{{ form.confirm_password.label }} {{ form.confirm_password }}</p>
+  <p id="first_name_new">{{ form.username.label }} {{ form.username }}</p>
+  <p id="email_new">{{ form.email.label }} {{ form.email }}</p>
+  <p id="password_new">{{ form.password.label }} {{ form.password }}</p>
+  <p id="password_confirm">{{ form.confirm_password.label }} {{ form.confirm_password }}</p>
   <input type="submit" value="Register">
 </form>
 

@@ -1,3 +1,4 @@
+import re
 from flask import render_template, url_for, request, redirect, flash
 import flask_login
 from blog import app, db
@@ -49,7 +50,8 @@ def login():
       login_user(user)
       flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
       return redirect(url_for('home'))
-    flash('Incorrect email or password supplied.')
+    # flash('Incorrect email or password supplied.')
+    return redirect(url_for('error'))
   return render_template('login.html',title='Login', form=form)
 
 
@@ -58,3 +60,7 @@ def logout():
   logout_user()
   flash('You\'re now logged out. Thanks for your visit!')
   return redirect(url_for('home'))
+
+@app.route("/error") 
+def error():
+    return render_template('error.html', title='Login Error')
