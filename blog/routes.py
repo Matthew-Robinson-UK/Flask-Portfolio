@@ -25,7 +25,7 @@ def post(post_id):
   form = CommentForm()
   # reference needed below
   if form.validate_on_submit():
-    comment = Comment(comment=form.comment_box.data, post=post)
+    comment = Comment(comment=form.comment_box.data, post=post, author=current_user._get_current_object())
     db.session.add(comment)
     db.session.commit()
     return redirect(url_for('.post', post_id=post.id))

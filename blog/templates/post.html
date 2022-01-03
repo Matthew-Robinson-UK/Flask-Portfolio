@@ -8,4 +8,11 @@
     <p>{{ form.comment_box.label }} {{ form.comment_box }}</p>
     <p><input type="submit" value="Comment"></p>
   </form>
+  <!-- reference needed below -->
+  {% if post.comments %}
+    {% for comment in post.comments %}
+    <!-- reference needed below  -->
+    <p>{{ comment.comment }} {{comment.author.username}}</p>
+    {% endfor %}
+  {% endif %}  
 {% endblock content %}

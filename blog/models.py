@@ -16,6 +16,14 @@ class Post(db.Model):
   def __repr__(self):
     return f"Post('{self.date}', '{self.title}', '{self.content}')"
 
+class Comment(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  comment = db.Column(db.Text, nullable=False)
+  author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  author = db.relationship(lambda: User, uselist=False)
+  post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
 class User(UserMixin,db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(20))
@@ -26,13 +34,6 @@ class User(UserMixin,db.Model):
 
   def __repr__(self):
     return f"User('{self.username}', '{self.email}')"
-
-class Comment(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
-  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-  comment = db.Column(db.Text, nullable=False)
-  author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-  post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
 #adated from Grinberg(2014, 2018)
   @property
