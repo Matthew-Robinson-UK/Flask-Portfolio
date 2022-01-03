@@ -34,6 +34,8 @@ def register():
     flask_login.login_user(user)
     flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
     return redirect(url_for('home'))
+  if form.validate_on_submit() == False:
+    flash('Sorry, there is a problem with your registration')
   return render_template('register.html',title='Register',form=form)
 
 
