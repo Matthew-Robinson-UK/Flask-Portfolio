@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
+from wtforms.fields.simple import TextAreaField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Regexp, Email
-from blog.models import User
+from blog.models import Comment, User
 
 class RegistrationForm(FlaskForm):
   username = StringField('First name',validators=[DataRequired()])
@@ -23,3 +24,8 @@ class LoginForm(FlaskForm):
   email = StringField('Email',validators=[DataRequired()])
   password = PasswordField('Password',validators=[DataRequired()])
   submit = SubmitField('Login')
+
+class CommentForm(FlaskForm):
+  # reference needed below
+    comment_box = TextAreaField('Write a comment.', validators=[DataRequired()])
+    submit = SubmitField('Comment')

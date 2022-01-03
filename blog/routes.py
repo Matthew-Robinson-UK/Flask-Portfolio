@@ -3,8 +3,8 @@ from flask import render_template, url_for, request, redirect, flash
 import flask_login
 from blog import app, db
 from blog import forms
-from blog.models import User, Post
-from blog.forms import RegistrationForm, LoginForm
+from blog.models import User, Post, Comment
+from blog.forms import RegistrationForm, LoginForm, CommentForm
 from flask_login import login_user, logout_user, current_user
 
 
@@ -18,10 +18,18 @@ def home():
 def about():
     return render_template('about.html', title='About')
     
-@app.route("/post/<int:post_id>")
+@app.route("/post/<int:post_id>", methods=['GET','Post'])
 def post(post_id):
-  post=Post.query.get_or_404(post_id)
-  return render_template('post.html',title=post.title,post=post)
+  post = Post.query.get_or_404(post_id)
+  # possibly change form to more descriptive comment_form
+  form = CommentForm()
+  # reference needed below
+  if form.validate_on_submit():
+    comment = Comment(comment=form.comment_box.data, post=post)
+    db.session.add(comment)
+    db.session.commit()
+    return redirect(url_for('.post', post_id=post.id))
+  return render_template('post.html',title=post.title,post=post, form=form)
 
 @app.route("/register",methods=['GET','POST'])
 def register():

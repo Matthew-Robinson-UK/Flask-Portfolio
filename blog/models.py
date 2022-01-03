@@ -11,6 +11,7 @@ class Post(db.Model):
   content = db.Column(db.Text, nullable=False)
   image_file = db.Column(db.String(40), nullable=False, default='default.jpg')
   author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  comments = db.relationship('Comment', backref='post', lazy=True)
 
   def __repr__(self):
     return f"Post('{self.date}', '{self.title}', '{self.content}')"
@@ -21,9 +22,17 @@ class User(UserMixin,db.Model):
   email = db.Column(db.String(120), unique=True, nullable=False)
   hashed_password=db.Column(db.String(128))
   post = db.relationship('Post', backref='user', lazy=True)
+  comments = db.relationship('Comment', backref='user', lazy=True)
 
   def __repr__(self):
     return f"User('{self.username}', '{self.email}')"
+
+class Comment(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  comment = db.Column(db.Text, nullable=False)
+  author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
 #adated from Grinberg(2014, 2018)
   @property
