@@ -1,6 +1,7 @@
 import re
 from flask import render_template, url_for, request, redirect, flash
 import flask_login
+from wtforms.widgets.core import SubmitInput
 from blog import app, db
 from blog import forms
 from blog.models import User, Post, Comment
@@ -41,8 +42,8 @@ def register():
     flash('Registration successful!')
     flask_login.login_user(user)
     flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
-    return redirect(url_for('home'))
-  if form.validate_on_submit() == False:
+    return redirect(url_for('home'))   
+  if form.is_submitted() and current_user.is_anonymous:
     flash('Sorry, there is a problem with your registration')
   return render_template('register.html',title='Register',form=form)
 
@@ -60,7 +61,6 @@ def login():
       login_user(user)
       flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
       return redirect(url_for('home'))
-    # flash('Incorrect email or password supplied.')
     return redirect(url_for('error'))
   return render_template('login.html',title='Login', form=form)
 
