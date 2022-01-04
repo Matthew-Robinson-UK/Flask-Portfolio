@@ -1,18 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-<p>"{{ post.title }}" &nbsp Author: {{ post.user.username }}</p>
+<p class = 'post_title'>"{{ post.title }}" &nbsp</p> 
+<p>Author: {{ post.user.username }}</p>
 <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
-<p>{{ post.content }}</p>
-<form method="POST" action="">
-  {{ form.csrf_token }}
-    <p>{{ form.comment_box.label }} {{ form.comment_box }}</p>
-    <p><input type="submit" value="Comment"></p>
+<p class = 'detailed_description'>{{ post.content }}</p>
+{% if current_user.is_authenticated %}
+  <form method="POST" action="">
+    {{ form.csrf_token }}
+      <p>{{ form.comment_box.label }} {{ form.comment_box }}</p>
+      <p><input type="submit" value="Comment"></p>
   </form>
+{% endif %}  
+{% if current_user.is_anonymous %}
+<p>Login to add a comment</p>
+{% endif %} 
   <!-- reference needed below -->
   {% if post.comments %}
     {% for comment in post.comments %}
     <!-- reference needed below  -->
-    <p>{{ comment.comment }} {{comment.author.username}}</p>
+    <p class = comment_text>{{ comment.comment }} 
+      {{comment.author.username}}
+    </p>
     {% endfor %}
   {% endif %}  
 {% endblock content %}
