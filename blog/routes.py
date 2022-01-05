@@ -1,11 +1,12 @@
 import re
 from flask import render_template, url_for, request, redirect, flash
 import flask_login
+from wtforms.fields import choices
 from wtforms.widgets.core import SubmitInput
 from blog import app, db
 from blog import forms
-from blog.models import User, Post, Comment
-from blog.forms import RegistrationForm, LoginForm, CommentForm
+from blog.models import Rating, User, Post, Comment
+from blog.forms import RegistrationForm, LoginForm, CommentForm, RatingForm
 from flask_login import login_user, logout_user, current_user
 
 
@@ -24,13 +25,20 @@ def post(post_id):
   post = Post.query.get_or_404(post_id)
   # possibly change form to more descriptive comment_form
   form = CommentForm()
+  rating_form = RatingForm()
   # reference needed below
   if form.validate_on_submit():
-    comment = Comment(comment=form.comment_box.data, post=post, author=current_user._get_current_object())
+    comment = Comment(comment=form.comment_box.data, post=post, user=current_user._get_current_object())
     db.session.add(comment)
     db.session.commit()
     return redirect(url_for('.post', post_id=post.id))
-  return render_template('post.html',title=post.title,post=post, form=form)
+  if rating_form.is_submitted():
+    # https://python-adv-web-apps.readthedocs.io/en/latest/flask_db3.html
+    rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
+    db.session.add(rating)
+    db.session.commit()
+    return redirect(url_for('.post', post_id=post.id))
+  return render_template('post.html',title=post.title,post=post, form=form, rating_form=rating_form)
 
 @app.route("/register",methods=['GET','POST'])
 def register():

@@ -2,8 +2,9 @@ from os import error
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.fields.simple import TextAreaField
+from wtforms.fields import SelectField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Regexp, Email
-from blog.models import Comment, User
+from blog.models import Comment, Rating, User
 
 class RegistrationForm(FlaskForm):
   username = StringField('First name',validators=[DataRequired()])
@@ -30,3 +31,7 @@ class CommentForm(FlaskForm):
   # reference needed below
     comment_box = TextAreaField('Write a comment.', validators=[DataRequired()])
     submit = SubmitField('Comment')
+# http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star
+class RatingForm(FlaskForm):
+  rating = SelectField(u'Select a rating', coerce=int, choices=[('1', u"\u2B50"), ('2', u"\u2B50"u"\u2B50"), ('3', u"\u2B50"u"\u2B50"u"\u2B50"), ('4', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"), ('5', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50")])
+  submit = SubmitField('Rating')

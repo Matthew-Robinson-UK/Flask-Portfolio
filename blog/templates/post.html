@@ -7,6 +7,12 @@
 {% if current_user.is_authenticated %}
   <form method="POST" action="">
     {{ form.csrf_token }}
+    <p>{{ rating_form.rating }}</p>
+    <p><input type="submit"></p>
+  </form>  
+
+  <form method="POST" action="">
+    {{ form.csrf_token }}
       <p>{{ form.comment_box.label }} {{ form.comment_box }}</p>
       <p><input type="submit" value="Comment"></p>
   </form>
@@ -19,7 +25,7 @@
     {% for comment in post.comments %}
     <!-- reference needed below  -->
     <p class = comment_text>{{ comment.comment }} 
-      {{comment.author.username}}
+      {{comment.user.username}}
     </p>
     {% endfor %}
   {% endif %}  

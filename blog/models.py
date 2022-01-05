@@ -13,6 +13,7 @@ class Post(db.Model):
   image_file = db.Column(db.String(40), nullable=False, default='default.jpg')
   author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
   comments = db.relationship('Comment', backref='post')
+  ratings = db.relationship('Rating', backref='post')
 
   def __repr__(self):
     return f"Post('{self.date}', '{self.title}', '{self.content}')"
@@ -24,13 +25,22 @@ class Comment(db.Model):
   author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
+class Rating(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  value = db.Column(db.Integer(), nullable=False)
+  author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+
 class User(UserMixin,db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(20))
   email = db.Column(db.String(120), unique=True, nullable=False)
   hashed_password=db.Column(db.String(128))
   post = db.relationship('Post', backref='user', lazy=True)
-  comments = db.relationship('Comment', backref='author')
+  comments = db.relationship('Comment', backref='user')
+  ratings = db.relationship('Rating', backref='user')
 
   def __repr__(self):
     return f"User('{self.username}', '{self.email}')"
