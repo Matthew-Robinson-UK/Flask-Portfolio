@@ -6,15 +6,25 @@ from wtforms.widgets.core import SubmitInput
 from blog import app, db
 from blog import forms
 from blog.models import Rating, User, Post, Comment
-from blog.forms import RegistrationForm, LoginForm, CommentForm, RatingForm
+from blog.forms import OrderForm, RegistrationForm, LoginForm, CommentForm, RatingForm
 from flask_login import login_user, logout_user, current_user
 
 
-@app.route("/")
-@app.route("/home") 
+@app.route("/", methods=['GET','POST'])
+@app.route("/home", methods=['GET','POST']) 
 def home():
-    posts=Post.query.all()
-    return render_template('home.html', posts=posts)
+  order_form=OrderForm()
+  posts=Post.query.all()
+  if request.method == 'POST':
+    order=request.form['sort']
+    print(order)
+    if order == 'date_desc':
+        posts=Post.query.order_by(Post.date.desc()).all()
+        return render_template('home.html', posts=posts, order_form=order_form)
+    elif order == 'date_asc':
+        posts=Post.query.order_by(Post.date.asc()).all()
+        return render_template('home.html', posts=posts, order_form=order_form)
+  return render_template('home.html', posts=posts, order_form=order_form)
 
 @app.route("/about") 
 def about():

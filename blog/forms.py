@@ -20,8 +20,6 @@ class RegistrationForm(FlaskForm):
     if user is not None:
       raise ValidationError('Email already exists. Please choose a different one.')
 
-
-
 class LoginForm(FlaskForm):
   email = StringField('Email',validators=[DataRequired()])
   password = PasswordField('Password',validators=[DataRequired()])
@@ -35,3 +33,7 @@ class CommentForm(FlaskForm):
 class RatingForm(FlaskForm):
   rating = SelectField(u'Select a rating', coerce=int, choices=[('1', u"\u2B50"), ('2', u"\u2B50"u"\u2B50"), ('3', u"\u2B50"u"\u2B50"u"\u2B50"), ('4', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"), ('5', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50")])
   submit = SubmitField('Rating')
+
+class OrderForm(FlaskForm):
+  sort = SelectField(u'Select an order', choices=[('date_asc','Ascending'), ('date_desc', 'Descending')], validators=[DataRequired()])
+  submit = SubmitField('sort')
