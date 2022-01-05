@@ -17,7 +17,6 @@ def home():
   posts=Post.query.all()
   if request.method == 'POST':
     order=request.form['sort']
-    print(order)
     if order == 'date_desc':
         posts=Post.query.order_by(Post.date.desc()).all()
         return render_template('home.html', posts=posts, order_form=order_form)
