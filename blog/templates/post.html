@@ -19,8 +19,8 @@
   </form>
 {% endif %}  
 {% if current_user.is_anonymous %}
-<p>Please <a href="{{ url_for('register') }}"> Register </a>&nbsp
-  or <a href="{{ url_for('login') }}"> Login </a>&nbsp to rate the post or add a comment.</p>
+<p>Please <a href="{{ url_for('register') }}"> Register  </a>
+  or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
 {% endif %} 
   <!-- reference needed below -->
 <h1>Comments</h1>
