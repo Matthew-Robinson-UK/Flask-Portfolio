@@ -25,9 +25,11 @@ def home():
         return render_template('home.html', posts=posts, order_form=order_form)
   return render_template('home.html', posts=posts, order_form=order_form)
 
-@app.route("/about") 
-def about():
-    return render_template('about.html', title='About')
+@app.route("/contact") 
+def contact():
+  user_email = User.query.filter_by(email='robinson.matthew2@gmail.com').first()
+  user_linkedin = User.query.filter_by(linkedin='https://www.linkedin.com/in/matthew-lee-robinson/').first()
+  return render_template('contact.html', title='Contact', user_email = user_email, user_linkedin = user_linkedin)
     
 @app.route("/post/<int:post_id>", methods=['GET','Post'])
 def post(post_id):

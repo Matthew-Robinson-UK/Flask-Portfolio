@@ -9,7 +9,6 @@
 <body>
     <div id="top_navig_bar">
         <a href="{{ url_for('home') }}" class="header" id = "home">Home</a>&nbsp
-        <a href="{{ url_for('about') }}" class="header" id = "about">About Us</a>&nbsp
         {% if current_user.is_anonymous %}
         <a href="{{ url_for('register') }}" class="header" id = "register">Register</a>
         <a href="{{ url_for('login') }}" class="header" id = "login">Login</a>
@@ -39,7 +38,7 @@
     </div>
 
     <footer id='footer'>
-        <a>Contact Details</a>
+      <a href="{{ url_for('contact') }}" class="footer" id = "Contact">Contact Me</a>
         <a>Privacy Policy</a>
         <a>Disclaimer</a>
     </footer>
