@@ -19,10 +19,10 @@ def home():
     order=request.form['sort']
     if order == 'date_desc':
         posts=Post.query.order_by(Post.date.desc()).all()
-        return redirect(url_for('home', posts=posts, order_form=order_form))
+        return render_template('home.html', posts=posts, order_form=order_form)
     elif order == 'date_asc':
         posts=Post.query.order_by(Post.date.asc()).all()
-        return redirect(url_for('home', posts=posts, order_form=order_form))
+        return render_template('home.html', posts=posts, order_form=order_form)
   return render_template('home.html', posts=posts, order_form=order_form)
 
 @app.route("/contact") 
