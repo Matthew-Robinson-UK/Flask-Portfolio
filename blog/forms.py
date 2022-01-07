@@ -10,7 +10,7 @@ class RegistrationForm(FlaskForm):
   username = StringField('First name',validators=[DataRequired()])
   # https://wtforms.readthedocs.io/en/2.3.x/validators/
   email = StringField('Email',validators=[DataRequired(),Email(message='Invalid email. Please check.', granular_message=False, check_deliverability=False, allow_smtputf8=True, allow_empty_local=False)])
-  # password must must be displayed as shown however password must also be betwenn 1 - 20 characters, error message is not accurate enough.
+  # password must be displayed as shown however password must also be betwenn 1 - 20 characters, error message is not accurate enough.
   password = PasswordField('Password',validators=[DataRequired(),Regexp('^[a-zA-Z0-9]{1,20}$',message='Your password contain invalid characters.'),EqualTo('confirm_password', message='Passwords do not match. Please try again.')])
   confirm_password = PasswordField('Confirm Password',validators=[DataRequired()])
   submit = SubmitField('Register')

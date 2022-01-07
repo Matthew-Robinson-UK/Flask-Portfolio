@@ -38,12 +38,11 @@ class User(UserMixin,db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(20))
   email = db.Column(db.String(120), unique=True, nullable=False)
-  linkedin = db.Column(db.String(120))
-  password=db.Column(db.String(128), unique=True, nullable=False)
   hashed_password=db.Column(db.String(128), unique=True, nullable=False)
   post = db.relationship('Post', backref='user', lazy=True)
   comments = db.relationship('Comment', backref='user')
   ratings = db.relationship('Rating', backref='user')
+  linkedin = db.Column(db.String(120))
   is_admin=db.Column(db.Boolean,nullable=False,default=False)
 
   def __repr__(self):
