@@ -4,33 +4,49 @@
     <meta charset="utf-8">
     <title>Let's Blog!</title> 
     <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+    <!-- reference bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
-    <div id="top_navig_bar">
-        <a href="{{ url_for('home') }}" class="header" id = "home">Home</a>&nbsp
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('register') }}" class="header" id = "register">Register</a>
-        <a href="{{ url_for('login') }}" class="header" id = "login">Login</a>
-        {% endif %}
-        {% if current_user.is_authenticated %}
-        <a href="{{ url_for('logout') }}" class="header" id = "logout">Logout</a>
-        {% endif %}
-        <a class="header" id = "pers_greet">Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!</a>
-    </div> 
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" id ="top_navig_bar">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('home') }}" class="header" id = "home">Home</a>&nbsp
+              </li>
+              {% if current_user.is_anonymous %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('register') }}" class="header" id = "register">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login') }}" class="header" id = "login">Login</a>
+              </li>
+              {% endif %}
+              {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}" class="header" id = "logout">Logout</a>
+              </li>
+              {% endif %}
+              <span class="navbar-text" class="header" class="nav-item" id = "pers_greet">Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!</a>
+              </span>
+            </ul>
+          </div>
+        </div>
+      </nav>
     
     <div>
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
-            <ul class=flashes>
-            {% for message in messages %}
-              <li>{{ message }}</li>
+            {% for category, message in messages %}
+              <li class="alert alert-{{ category }}"  role="alert">{{ message }}</li>
             {% endfor %}
             </ul>
           {% endif %}
         {% endwith %}
     </div>
-        
+
     
     <div id="content">
         {% block content %} 
@@ -43,5 +59,7 @@
         <a>Disclaimer</a>
     </footer>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>

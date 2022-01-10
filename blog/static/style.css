@@ -1,4 +1,8 @@
-*{
-color: rgb(0, 0, 0);
-font-family: Georgia, 'Times New Roman', Times, serif;
+.navbar-text {
+    margin-left: 5%;
+}
+
+.login_error {
+    color: red;
+    text-transform: capitalize;
 }

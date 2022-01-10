@@ -58,12 +58,12 @@ def register():
     user = User(username=form.username.data, email=form.email.data, password=form.password.data)
     db.session.add(user)
     db.session.commit()
-    flash('Registration successful!')
+    flash('Registration successful!', 'success')
     flask_login.login_user(user)
-    flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
+    flash('You\'ve successfully logged in,'+' '+ current_user.username +'!', 'success')
     return redirect(url_for('home'))   
   if form.is_submitted() and current_user.is_anonymous:
-    flash('Sorry, there is a problem with your registration')
+    flash('Sorry, there is a problem with your registration', 'danger')
   return render_template('register.html',title='Register',form=form)
 
 
@@ -78,7 +78,7 @@ def login():
     user = User.query.filter_by(email=form.email.data).first()
     if user is not None and user.verify_password(form.password.data):
       login_user(user)
-      flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
+      flash('You\'ve successfully logged in,'+' '+ current_user.username +'!', 'success')
       return redirect(url_for('home'))
     return redirect(url_for('error'))
   return render_template('login.html',title='Login', form=form)
@@ -87,7 +87,7 @@ def login():
 @app.route("/logout")
 def logout():
   logout_user()
-  flash('You\'re now logged out. Thanks for your visit!')
+  flash('You\'re now logged out. Thanks for your visit!', 'success')
   return redirect(url_for('home'))
 
 @app.route("/error") 
