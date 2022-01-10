@@ -6,3 +6,15 @@
     color: red;
     text-transform: capitalize;
 }
+
+#content {
+    padding-top: 2vh;
+    padding-left: .5vh;
+    padding-right: .5vh;
+}
+
+#footer {
+    padding-bottom: 1vh;
+    padding-left: .5vh;
+    padding-right: .5vh;
+}
