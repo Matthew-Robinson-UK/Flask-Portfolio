@@ -2,18 +2,51 @@
     margin-left: 5%;
 }
 
+img {
+    width:75vw; /* you can use % */
+    height: auto;
+}
+
 .login_error {
     color: red;
     text-transform: capitalize;
 }
 
+.feedback {
+    display: flex;
+    justify-content: space-evenly;
+    align-content:center;
+    min-width: 75vw;
+}
+.comment{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.view_feedback{
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 75vw;
+}
+.view_comments{
+    display:flex;
+    flex-direction: column;
+}
+.view_ratings{
+    display:flex;
+    flex-direction: column;
+}
 #content {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
     padding-top: 2vh;
     padding-left: .5vh;
     padding-right: .5vh;
 }
 
 #footer {
+
     padding-bottom: 1vh;
     padding-left: .5vh;
     padding-right: .5vh;

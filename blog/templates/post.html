@@ -4,41 +4,54 @@
 <p>Author: {{ post.user.username }}</p>
 <p class = 'detailed_description'>{{ post.description }}</p>
 <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
+
 <p> {{ post.content }} </p>
+
 {% if current_user.is_authenticated %}
+
+<div class = "feedback">
   <form method="POST" action="" class = 'post_rating'>
     {{ form.csrf_token }}
     <p>{{ rating_form.rating }}</p>
     <p><input type="submit" value='Rate'></p>
   </form>  
 
-  <form method="POST" action="">
+  <form method="POST" action="" class ="comment">
     {{ form.csrf_token }}
       <p>{{ form.comment_box.label }} {{ form.comment_box }}</p>
       <p><input type="submit" value="Comment"></p>
   </form>
+</div>
 {% endif %}  
+
 {% if current_user.is_anonymous %}
-<p>Please <a href="{{ url_for('register') }}"> Register  </a>
-  or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
+
+<p>Please <a href="{{ url_for('register') }}"> Register  </a> or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
+
 {% endif %} 
   <!-- reference needed below -->
-<h1>Comments</h1>
-  {% if post.comments %}
-    {% for comment in post.comments %}
-    <!-- reference needed below  -->
-    <p class = comment_text>{{ comment.comment }} 
+<div class="view_feedback">
+  <div class="view_ratings ">
+    <h1>Post Ratings</h1>
+    {% if post.ratings %}
+      {% for value in post.ratings %}
+      <!-- http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star -->
+        <p> ({{ value.value }} &#x2b50;)
+          {{ value.user.username}}
+        </p>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="view_comment ">
+  <h1>Comments</h1>
+    {% if post.comments %}
+      {% for comment in post.comments %}
+     <!-- reference needed below  -->
+     <p class = comment_text>{{ comment.comment }} 
       {{comment.user.username}}
-    </p>
-    {% endfor %}
-  {% endif %}  
-<h1>Post Ratings</h1>
-{% if post.ratings %}
-  {% for value in post.ratings %}
-  <!-- http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star -->
- <p> ({{ value.value }} &#x2b50;)
-      {{ value.user.username}}
-    </p>
-  {% endfor %}
-{% endif %} 
+      </p>
+      {% endfor %}
+    {% endif %}  
+  </div>
+</div> 
 {% endblock content %}

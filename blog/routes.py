@@ -44,11 +44,15 @@ def post(post_id):
     db.session.commit()
     return redirect(url_for('.post', post_id=post.id))
   if rating_form.is_submitted():
-    # https://python-adv-web-apps.readthedocs.io/en/latest/flask_db3.html
-    rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
-    db.session.add(rating)
-    db.session.commit()
-    return redirect(url_for('.post', post_id=post.id))
+    if current_user.ratings == []:
+      # https://python-adv-web-apps.readthedocs.io/en/latest/flask_db3.html
+      rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
+      db.session.add(rating)
+      db.session.commit()
+      return redirect(url_for('.post', post_id=post.id))
+    else:
+      flash('You are only able to rate a post once ', 'danger')
+      return redirect(url_for('.post', post_id=post.id))
   return render_template('post.html',title=post.title,post=post, form=form, rating_form=rating_form)
 
 @app.route("/register",methods=['GET','POST'])
