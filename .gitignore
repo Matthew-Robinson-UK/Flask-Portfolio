@@ -1,5 +1,6 @@
 __pycache__
 .vscode
+*.pyc
 venv
 .DS_Store
 db_maker.py
