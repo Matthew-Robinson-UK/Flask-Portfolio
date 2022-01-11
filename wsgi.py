@@ -1,4 +1,6 @@
-from blog import app
+from blog import app as application
 
-if __name__ == '__main__':
-    app.run(debug=True) 
+# from blog import app
+
+# if __name__ == '__main__':
+#     app.run(debug=True) 
