@@ -3,6 +3,7 @@
 <p class = 'post_title'>"{{ post.title }}" &nbsp</p> 
 <p>Author: {{ post.user.username }}</p>
 <p class = 'detailed_description'>{{ post.description }}</p>
+<p>Average Rating {{ avg_rating }} &#x2b50; </p>
 <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
 
 <p> {{ post.content }} </p>
@@ -36,8 +37,8 @@
     {% if post.ratings %}
       {% for value in post.ratings %}
       <!-- http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star -->
-        <p> ({{ value.value }} &#x2b50;)
-          {{ value.user.username}}
+        <p> {{ value.value }} &#x2b50;
+          {{ value.user.email}}
         </p>
       {% endfor %}
     {% endif %}
@@ -48,7 +49,7 @@
       {% for comment in post.comments %}
      <!-- reference needed below  -->
      <p class = comment_text>{{ comment.comment }} 
-      {{comment.user.username}}
+      {{comment.user.email}}
       </p>
       {% endfor %}
     {% endif %}  

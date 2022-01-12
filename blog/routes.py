@@ -1,5 +1,5 @@
 import re
-from flask import render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash, session
 import flask_login
 from wtforms.fields import choices
 from wtforms.widgets.core import SubmitInput
@@ -8,6 +8,7 @@ from blog import forms
 from blog.models import Rating, User, Post, Comment
 from blog.forms import OrderForm, RegistrationForm, LoginForm, CommentForm, RatingForm
 from flask_login import login_user, logout_user, current_user
+from sqlalchemy.sql import func
 
 
 @app.route("/", methods=['GET','POST'])
@@ -37,6 +38,15 @@ def post(post_id):
   # possibly change form to more descriptive comment_form
   form = CommentForm()
   rating_form = RatingForm()
+  
+  # outer join reference needed
+  ratings = db.session.query(Post.id, db.func.avg(Rating.value)).outerjoin(Rating, Post.id == Rating.post_id).group_by(Post.id).all()
+  for p in ratings:
+    if post_id == p[0]:
+      try:
+          avg_rating = round(p[1], 1)
+      except:
+          avg_rating = 0
   # reference needed below
   if form.validate_on_submit():
     comment = Comment(comment=form.comment_box.data, post=post, user=current_user._get_current_object())
@@ -44,16 +54,16 @@ def post(post_id):
     db.session.commit()
     return redirect(url_for('.post', post_id=post.id))
   if rating_form.is_submitted():
-    if current_user.ratings == []:
+    # if post.ratings == []:
       # https://python-adv-web-apps.readthedocs.io/en/latest/flask_db3.html
-      rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
-      db.session.add(rating)
-      db.session.commit()
-      return redirect(url_for('.post', post_id=post.id))
-    else:
-      flash('You are only able to rate a post once ', 'danger')
-      return redirect(url_for('.post', post_id=post.id))
-  return render_template('post.html',title=post.title,post=post, form=form, rating_form=rating_form)
+    rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
+    db.session.add(rating)
+    db.session.commit()
+    return redirect(url_for('.post', post_id=post.id))
+    # else:
+    #   flash('You are only able to rate a post once ', 'danger')
+    # return redirect(url_for('.post', post_id=post.id))
+  return render_template('post.html',title=post.title,post=post, form=form, rating_form=rating_form, avg_rating=avg_rating)
 
 @app.route("/register",methods=['GET','POST'])
 def register():
