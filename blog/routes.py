@@ -19,11 +19,11 @@ def home():
   if request.method == 'POST':
     order=request.form['sort']
     if order == 'date_desc':
-        posts=Post.query.order_by(Post.date.desc()).all()
-        return render_template('home.html', posts=posts, order_form=order_form)
+      posts=Post.query.order_by(Post.date.desc()).all()
+      return render_template('home.html', posts=posts, order_form=order_form)
     elif order == 'date_asc':
-        posts=Post.query.order_by(Post.date.asc()).all()
-        return render_template('home.html', posts=posts, order_form=order_form)
+      posts=Post.query.order_by(Post.date.asc()).all()
+      return render_template('home.html', posts=posts, order_form=order_form)
   return render_template('home.html', posts=posts, order_form=order_form)
 
 @app.route("/contact") 
@@ -38,7 +38,6 @@ def post(post_id):
   # possibly change form to more descriptive comment_form
   form = CommentForm()
   rating_form = RatingForm()
-  
   # outer join reference needed
   ratings = db.session.query(Post.id, db.func.avg(Rating.value)).outerjoin(Rating, Post.id == Rating.post_id).group_by(Post.id).all()
   for p in ratings:

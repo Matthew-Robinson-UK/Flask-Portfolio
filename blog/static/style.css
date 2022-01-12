@@ -5,6 +5,8 @@
 img {
     width:75vw; /* you can use % */
     height: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .login_error {
@@ -27,6 +29,20 @@ img {
     display: flex;
     justify-content: space-evenly;
     min-width: 75vw;
+}
+.blog_post{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.short_description{
+    max-width: 75vw;
+}
+.detailed_description{
+    max-width: 75vw;
+    padding-top: 10px;
 }
 .view_comments{
     display:flex;

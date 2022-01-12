@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
+<h1>Professional Portfolio</h1>
 <form method="POST" action="">
     <p>{{ order_form.sort }}
-    <input type="submit" value="Sort">
+    <input type="submit" value="Sort by Date">
     </p>
 </form>
 {% for post in posts %}
