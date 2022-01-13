@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h3 class = 'post_title'>"{{ post.title }}" &nbsp | Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;</h3>
-<p class = 'detailed_description'>{{ post.description }}</p>
+<p class = 'short_description'>{{ post.description }}</p>
 <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
 
-<p> {{ post.content }} </p>
+<p class = 'detailed_description'> {{ post.content }} </p>
 
 {% if current_user.is_authenticated %}
 
@@ -46,7 +46,7 @@
     {% if post.comments %}
       {% for comment in post.comments %}
      <!-- reference needed below  -->
-     <p class = comment_text>{{ comment.comment }} 
+     <p class = comment_text>{{ comment.comment }} &nbsp
       {{comment.user.email}}
       </p>
       {% endfor %}

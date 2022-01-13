@@ -31,6 +31,14 @@ def contact():
   user_email = User.query.filter_by(email='robinson.matthew2@gmail.com').first()
   user_linkedin = User.query.filter_by(linkedin='https://www.linkedin.com/in/matthew-lee-robinson/').first()
   return render_template('contact.html', title='Contact', user_email = user_email, user_linkedin = user_linkedin)
+
+@app.route("/disclaimer") 
+def disclaimer():
+  return render_template('disclaimer.html', title='Disclaimer')
+
+@app.route("/privacy_policy") 
+def privacy_policy():
+  return render_template('privacy_policy.html', title='Privacy Policy')
     
 @app.route("/post/<int:post_id>", methods=['GET','Post'])
 def post(post_id):
@@ -40,6 +48,8 @@ def post(post_id):
   rating_form = RatingForm()
   # outer join reference needed
   ratings = db.session.query(Post.id, db.func.avg(Rating.value)).outerjoin(Rating, Post.id == Rating.post_id).group_by(Post.id).all()
+  # users = db.session.query(User, db.func.count(Rating.value)).outerjoin(Rating, User.id == Rating.author_id).filter(Rating.post_id.contains('1')).all()
+  # print(users)
   for p in ratings:
     if post_id == p[0]:
       try:
@@ -53,7 +63,6 @@ def post(post_id):
     db.session.commit()
     return redirect(url_for('.post', post_id=post.id))
   if rating_form.is_submitted():
-    # if post.ratings == []:
       # https://python-adv-web-apps.readthedocs.io/en/latest/flask_db3.html
     rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
     db.session.add(rating)
@@ -79,10 +88,6 @@ def register():
     flash('Sorry, there is a problem with your registration', 'danger')
   return render_template('register.html',title='Register',form=form)
 
-
-@app.route("/registered")
-def registered():
-  return render_template('registered.html', title='Thanks!')
 
 @app.route("/login",methods=['GET','POST'])
 def login():

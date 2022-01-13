@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, EqualTo, ValidationError, Regexp, E
 from blog.models import Comment, Rating, User
 
 class RegistrationForm(FlaskForm):
-  username = StringField('First name',validators=[DataRequired()])
+  username = StringField('First name',validators=[DataRequired(), Regexp('^[a-zA-Z0-9]{1,20}$',message='Your first name contains invalid characters.')])
   # https://wtforms.readthedocs.io/en/2.3.x/validators/
   email = StringField('Email',validators=[DataRequired(),Email(message='Invalid email. Please check.', granular_message=False, check_deliverability=False, allow_smtputf8=True, allow_empty_local=False)])
   # password must be displayed as shown however password must also be betwenn 1 - 20 characters, error message is not accurate enough.
@@ -31,7 +31,7 @@ class CommentForm(FlaskForm):
     submit = SubmitField('Comment')
 # http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star
 class RatingForm(FlaskForm):
-  rating = SelectField(u'Select a rating', coerce=int, choices=[('1', u"\u2B50"), ('2', u"\u2B50"u"\u2B50"), ('3', u"\u2B50"u"\u2B50"u"\u2B50"), ('4', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"), ('5', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50")])
+  rating = SelectField(u'Select a rating', coerce=int, choices=[('1', u"\u2B50"), ('2', u"\u2B50"u"\u2B50"), ('3', u"\u2B50"u"\u2B50"u"\u2B50"), ('4', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"), ('5', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50")],validators=[DataRequired()])
   submit = SubmitField('Rating')
 
 class OrderForm(FlaskForm):
