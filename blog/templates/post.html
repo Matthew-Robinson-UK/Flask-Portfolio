@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<h3 class = 'post_title'>"{{ post.title }}" &nbsp | Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;</h3>
+<h3 class = 'post_title'>"{{ post.title }}" &nbsp| Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;</h3>
 <p class = 'short_description'>{{ post.description }}</p>
 <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
 
