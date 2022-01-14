@@ -7,11 +7,11 @@ from wtforms.validators import DataRequired, EqualTo, ValidationError, Regexp, E
 from blog.models import Comment, Rating, User
 
 class RegistrationForm(FlaskForm):
-  username = StringField('First name',validators=[DataRequired(), Regexp('^[a-zA-Z0-9]{1,20}$',message='Your first name contains invalid characters.')])
+  username = StringField('First name',validators=[DataRequired(), Regexp('^[a-zA-Z0-9]{1,20}$',message='Your first name contains invalid characters or is over 20 characters long.')])
   # https://wtforms.readthedocs.io/en/2.3.x/validators/
   email = StringField('Email',validators=[DataRequired(),Email(message='Invalid email. Please check.', granular_message=False, check_deliverability=False, allow_smtputf8=True, allow_empty_local=False)])
   # password must be displayed as shown however password must also be betwenn 1 - 20 characters, error message is not accurate enough.
-  password = PasswordField('Password',validators=[DataRequired(),Regexp('^[a-zA-Z0-9]{1,20}$',message='Your password contain invalid characters.'),EqualTo('confirm_password', message='Passwords do not match. Please try again.')])
+  password = PasswordField('Password',validators=[DataRequired(),Regexp('^[a-zA-Z0-9]{1,20}$',message='Your password contain invalid characters or is over 20 characters long.'),EqualTo('confirm_password', message='Passwords do not match. Please try again.')])
   confirm_password = PasswordField('Confirm Password',validators=[DataRequired()])
   submit = SubmitField('Register')
 

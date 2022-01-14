@@ -9,7 +9,7 @@ class Post(db.Model):
   date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
   title = db.Column(db.Text, nullable=False)
   content = db.Column(db.Text, nullable=False)
-  description = db.Column(db.String(200), nullable=False)
+  description = db.Column(db.String(250), nullable=False)
   image_file = db.Column(db.String(40), nullable=False, default='default.jpg')
   author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
   comments = db.relationship('Comment', backref='post')
