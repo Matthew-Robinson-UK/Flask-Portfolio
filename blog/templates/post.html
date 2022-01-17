@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
+      <!-- code used for a star emoji -->
+      <!-- taken from iemoji website 2010 -->
+      <!-- accessed 05 - 01 - 2022 -->
+      <!-- http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star -->
 <h3 class = 'post_title'>"{{ post.title }}" &nbsp| Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;</h3>
+      <!-- end of referenced code. -->
 <p class = 'short_description'>{{ post.description }}</p>
 <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
 
@@ -28,13 +33,11 @@
 <p>Please <a href="{{ url_for('register') }}"> Register  </a> or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
 
 {% endif %} 
-  <!-- reference needed below -->
 <div class="view_feedback">
   <div class="view_ratings ">
     <h1>Post Ratings</h1>
     {% if post.ratings %}
       {% for value in post.ratings %}
-      <!-- http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star -->
         <p> {{ value.value }} &#x2b50;
           {{ value.user.email}}
         </p>
@@ -45,7 +48,6 @@
   <h1>Comments</h1>
     {% if post.comments %}
       {% for comment in post.comments %}
-     <!-- reference needed below  -->
      <p class = comment_text>{{ comment.comment }} &nbsp
       {{comment.user.email}}
       </p>

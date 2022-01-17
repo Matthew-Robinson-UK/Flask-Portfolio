@@ -18,7 +18,7 @@ class Post(db.Model):
   def __repr__(self):
     return f"Post('{self.date}', '{self.title}', '{self.content}')"
 
-# reference needed below
+
 class Comment(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

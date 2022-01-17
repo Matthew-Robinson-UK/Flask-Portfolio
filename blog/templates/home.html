@@ -10,7 +10,6 @@
 <div class = "blog_post">
     <p><a href="{{ url_for('post', post_id=post.id) }}" class = 'post_title'>
         "{{ post.title }}"</a>&nbsp
-        by {{ post.user.username }}
     </p>
         <a href="{{ url_for('post', post_id=post.id) }}"><img src="{{ url_for('static', filename='img/' + post.image_file) }}"></a>
     <p class = 'short_description'>{{ post.description }}</p>  

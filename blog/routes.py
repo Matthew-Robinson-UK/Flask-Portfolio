@@ -1,10 +1,7 @@
-import re
 from flask import render_template, url_for, request, redirect, flash, session
 import flask_login
-from wtforms.fields import choices
 from wtforms.widgets.core import SubmitInput
 from blog import app, db
-from blog import forms
 from blog.models import Rating, User, Post, Comment
 from blog.forms import OrderForm, RegistrationForm, LoginForm, CommentForm, RatingForm
 from flask_login import login_user, logout_user, current_user
@@ -43,34 +40,36 @@ def privacy_policy():
 @app.route("/post/<int:post_id>", methods=['GET','Post'])
 def post(post_id):
   post = Post.query.get_or_404(post_id)
-  # possibly change form to more descriptive comment_form
   form = CommentForm()
   rating_form = RatingForm()
-  # outer join reference needed
+  # Query containing an outerjoin to be able to combine ratings and post tables to allow average of indivdual posts to be read.
+  # taken from Stack Overflow post by Carl 23 - 05 - 2018
+  # accessed 10 - 01 - 2022
+  # https://stackoverflow.com/questions/50477793/flask-sqlalchemy-outerjoin-with-three-tables
   ratings = db.session.query(Post.id, db.func.avg(Rating.value)).outerjoin(Rating, Post.id == Rating.post_id).group_by(Post.id).all()
-  # users = db.session.query(User, db.func.count(Rating.value)).outerjoin(Rating, User.id == Rating.author_id).filter(Rating.post_id.contains('1')).all()
-  # print(users)
+  # end of referenced code.
   for p in ratings:
     if post_id == p[0]:
       try:
           avg_rating = round(p[1], 1)
       except:
           avg_rating = 0
-  # reference needed below
+
   if form.validate_on_submit():
+    # Storing the user of a comment by retrieving it from the current_user 
+    # taken from werkzeug documents by Pallet Projects 2007
+    # accessed 02 - 01 - 2022
+    # https://werkzeug.palletsprojects.com/en/2.0.x/local/
     comment = Comment(comment=form.comment_box.data, post=post, user=current_user._get_current_object())
     db.session.add(comment)
     db.session.commit()
     return redirect(url_for('.post', post_id=post.id))
   if rating_form.is_submitted():
-      # https://python-adv-web-apps.readthedocs.io/en/latest/flask_db3.html
     rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
+    # end of referenced code.
     db.session.add(rating)
     db.session.commit()
     return redirect(url_for('.post', post_id=post.id))
-    # else:
-    #   flash('You are only able to rate a post once ', 'danger')
-    # return redirect(url_for('.post', post_id=post.id))
   return render_template('post.html',title=post.title,post=post, form=form, rating_form=rating_form, avg_rating=avg_rating)
 
 @app.route("/register",methods=['GET','POST'])
