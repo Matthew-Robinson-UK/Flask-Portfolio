@@ -26,12 +26,18 @@ class Comment(db.Model):
   author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
+  def __repr__(self):
+    return f"Comment('{self.date}', '{self.comment}', '{self.author_id}')"
+
 class Rating(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
   value = db.Column(db.Integer(), nullable=False)
   author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+  def __repr__(self):
+    return f"Rating('{self.date}', '{self.value}', '{self.author_id}')"
 
 
 class User(UserMixin,db.Model):

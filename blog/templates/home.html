@@ -2,9 +2,10 @@
 {% block content %}
 <h1>Professional Portfolio</h1>
 <form method="POST" action="">
-    <p>{{ order_form.sort }}
+    {{ order_form.csrf_token }}
+<p> {{ order_form.sort }}
     <input type="submit" value="Sort by Date">
-    </p>
+</p>
 </form>
 {% for post in posts %}
 <div class = "blog_post">
