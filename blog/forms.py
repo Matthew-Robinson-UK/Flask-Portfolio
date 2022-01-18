@@ -31,14 +31,16 @@ class LoginForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment_box = TextAreaField('Write a comment.', validators=[DataRequired()])
     submit = SubmitField('Comment')
-# code used for a star emoji
-# taken from iemoji website 2010
-# accessed 05 - 01 - 2022
-# http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star
+
 class RatingForm(FlaskForm):
+  # code used for a star emoji
+  # taken from iemoji website 2010
+  # accessed 05 - 01 - 2022
+  # http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star
   rating = SelectField(u'Select a rating', coerce=int, choices=[('1', u"\u2B50"), ('2', u"\u2B50"u"\u2B50"), ('3', u"\u2B50"u"\u2B50"u"\u2B50"), ('4', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"), ('5', u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50"u"\u2B50")],validators=[DataRequired()])
+  # end of referenced code.
   submit = SubmitField('Rating')
-# end of referenced code.
+
 class OrderForm(FlaskForm):
   sort = SelectField(u'Select an order', choices=[('date_asc','Ascending'), ('date_desc', 'Descending')], validators=[DataRequired()])
   submit = SubmitField('sort')

@@ -65,7 +65,9 @@ img {
 }
 
 #footer {
-
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(247, 247, 247);
     padding-bottom: 1vh;
     padding-left: .5vh;
     padding-right: .5vh;
