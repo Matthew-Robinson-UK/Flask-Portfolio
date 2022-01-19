@@ -29,7 +29,7 @@ class LoginForm(FlaskForm):
   submit = SubmitField('Login')
 
 class CommentForm(FlaskForm):
-    comment_box = TextAreaField('Write a comment.', validators=[DataRequired()])
+    comment_box = TextAreaField('Write a comment', validators=[DataRequired()])
     submit = SubmitField('Comment')
 
 class RatingForm(FlaskForm):

@@ -4,12 +4,13 @@
       <!-- taken from iemoji website 2010 -->
       <!-- accessed 05 - 01 - 2022 -->
       <!-- http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star -->
-<h3 class = 'post_title'>"{{ post.title }}" &nbsp| Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;</h3>
+<h3 class = 'post_title post'>"{{ post.title }}" &nbsp| Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;</h3>
       <!-- end of referenced code. -->
-<p class = 'short_description'>{{ post.description }}</p>
-<img src="{{ url_for('static', filename='img/' + post.image_file) }}">
+<Figure>
+  <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
+  <figcaption class = 'detailed_description'> {{ post.content }} </figcaption>
+</Figure>
 
-<p class = 'detailed_description'> {{ post.content }} </p>
 
 {% if current_user.is_authenticated %}
 
@@ -20,9 +21,9 @@
     <p><input type="submit" value='Rate'></p>
   </form>  
 
-  <form method="POST" action="" class ="comment">
+  <form method="POST" action="" class ="comment_text">
     {{ form.csrf_token }}
-      <p>{{ form.comment_box.label }} {{ form.comment_box }}</p>
+      <p>{{ form.comment_box }}</p>
       <p><input type="submit" value="Comment"></p>
   </form>
 </div>
@@ -30,7 +31,7 @@
 
 {% if current_user.is_anonymous %}
 
-<p>Please <a href="{{ url_for('register') }}"> Register  </a> or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
+<p class="feedback_sign_in">Please <a href="{{ url_for('register') }}"> Register  </a> or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
 
 {% endif %} 
 <div class="view_feedback">

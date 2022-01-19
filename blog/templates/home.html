@@ -1,19 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Career Portfolio</h1>
+<h1 class='blog_title'>Professional Portfolio</h1>
 <form method="POST" action="">
     {{ order_form.csrf_token }}
-<p> {{ order_form.sort }}
+<p> 
+    {{ order_form.sort }}
     <input type="submit" value="Sort by Date">
 </p>
 </form>
 {% for post in posts %}
 <div class = "blog_post">
-    <p><a href="{{ url_for('post', post_id=post.id) }}" class = 'post_title'>
+    <p>
+        <a href="{{ url_for('post', post_id=post.id) }}" class = 'post_title home' >
         "{{ post.title }}"</a>&nbsp
     </p>
-        <a href="{{ url_for('post', post_id=post.id) }}"><img src="{{ url_for('static', filename='img/' + post.image_file) }}"></a>
-    <p class = 'short_description'>{{ post.description }}</p>  
+    <a href="{{ url_for('post', post_id=post.id) }}">
+    <Figure class = 'container'>
+        <img class="home_img" src="{{ url_for('static', filename='img/' + post.image_file) }}"></a>
+        <figcaption class = 'short_description'>{{ post.description }}</figcaption> 
+    </Figure>   
+     
 </div>
 {% endfor %}
 
