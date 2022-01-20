@@ -57,23 +57,19 @@
         <div class="container-fluid">
           <ul class="navbar-nav bottom">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('contact') }}" class="footer" id = "Contact">Contact Me</a>
+              <a class="footer nav-link" href="{{ url_for('contact') }}" id = "Contact">Contact Me</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('privacy_policy') }}" class="footer" id = "privacy_policy">Privacy Policy</a>
+              <a class="footer nav-link" href="{{ url_for('privacy_policy') }}" id = "privacy_policy">Privacy Policy</a>
             </li>
             <li class="nav-item">
-              <a  class="nav-link" href="{{ url_for('disclaimer') }}" class="footer" id = "disclaimer">Disclaimer</a>
+              <a  class="footer nav-link" href="{{ url_for('disclaimer') }}" id = "disclaimer">Disclaimer</a>
             </li>
-            <span class="navbar-text nav-item" class="footer" id = "signature">&nbsp &nbsp Created using Flask by Matthew Robinson
+            <span class="footer navbar-text nav-item" id = "signature"> &nbsp &nbsp Created using Flask by Matthew Robinson
             </span>
           </ul>
         </div>
       </nav>
-      <!-- <a href="{{ url_for('contact') }}" class="footer" id = "Contact">Contact Me</a>&nbsp
-        <a href="{{ url_for('privacy_policy') }}" class="footer" id = "privacy_policy">Privacy Policy</a>&nbsp
-        <a href="{{ url_for('disclaimer') }}" class="footer" id = "disclaimer">Disclaimer</a>&nbsp
-        <span class="footer" id = "signature">Created using Flask by Matthew Robinson</span> -->
     </footer>
 </body>
 </html>
