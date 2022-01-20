@@ -13,22 +13,22 @@
         <div class="container-fluid">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="header nav-link" href="{{ url_for('home') }}" id = "home">Home</a>
+                <a class="nav-link" href="{{ url_for('home') }}" class="header" id = "home">Home</a>
               </li>
               {% if current_user.is_anonymous %}
               <li class="nav-item">
-                <a class="header nav-link" href="{{ url_for('register') }}" id = "register">Register</a>
+                <a class="nav-link" href="{{ url_for('register') }}" class="header" id = "register">Register</a>
               </li>
               <li class="nav-item">
-                <a class="header nav-link" href="{{ url_for('login') }}" id = "login">Login</a>
+                <a class="nav-link" href="{{ url_for('login') }}" class="header" id = "login">Login</a>
               </li>
               {% endif %}
               {% if current_user.is_authenticated %}
               <li class="nav-item">
-                <a class="header nav-link" href="{{ url_for('logout') }}" id = "logout">Logout</a>
+                <a class="nav-link" href="{{ url_for('logout') }}" class="header" id = "logout">Logout</a>
               </li>
               {% endif %}
-              <span id = "pers_greet" class="navbar-text header" class="nav-item" >Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!</a>
+              <span class="navbar-text" class="header" class="nav-item" id = "pers_greet">Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!</a>
               </span>
             </ul>
           </div>
