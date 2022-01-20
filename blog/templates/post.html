@@ -15,7 +15,7 @@
 {% if current_user.is_authenticated %}
 
 <div class = "feedback">
-  <form method="POST" action="" class = 'post_rating'>
+  <form method="POST" action="" class = "post_rating">
     {{ form.csrf_token }}
     <p>{{ rating_form.rating }}</p>
     <p><input type="submit" value='Rate'></p>
@@ -40,8 +40,8 @@
        {% for comment in post.comments %}
        -----------------------------------------------------------------
       <p class = comment_text>{{ comment.comment }} &nbsp 
-       <p> Posted by <span class = "comment_colour">{{comment.user.email}} </span> </p>
-        <P> Posted at <span class = "comment_colour">{{comment.date}} </span> </P>
+       <p> Posted by <span class = "comment_colour"> {{comment.user.email}} </span> </p>
+        <P> Posted at <span class = "comment_colour"> {{comment.date}} </span> </P>
       </p>
         {% endfor %}
       {% endif %}  
