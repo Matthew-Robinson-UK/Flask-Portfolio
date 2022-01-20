@@ -34,26 +34,17 @@
 <p class="feedback_sign_in">Please <a href="{{ url_for('register') }}"> Register  </a> or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
 
 {% endif %} 
-<div class="view_feedback">
-  <div class="view_ratings ">
-    <h3>Ratings</h3>
-    {% if post.ratings %}
-      {% for value in post.ratings %}
-        <p> {{ value.value }} &#x2b50;
-          {{ value.user.email}}
-        </p>
-      {% endfor %}
-    {% endif %}
-  </div>
-  <div class="view_comment ">
-  <h3>Comments</h3>
-    {% if post.comments %}
-      {% for comment in post.comments %}
-     <p class = comment_text>{{ comment.comment }} &nbsp
-      {{comment.user.email}}
+  <div class="view_comments">
+    <h3>Comments</h3>
+      {% if post.comments %}
+       {% for comment in post.comments %}
+       -----------------------------------------------------------------
+      <p class = comment_text>{{ comment.comment }} &nbsp 
+       <p> Posted by <span class = "comment_colour">{{comment.user.email}} </span> </p>
+        <P> Posted at <span class = "comment_colour">{{comment.date}} </span> </P>
       </p>
-      {% endfor %}
-    {% endif %}  
+        {% endfor %}
+      {% endif %}  
   </div>
-</div> 
+
 {% endblock content %}

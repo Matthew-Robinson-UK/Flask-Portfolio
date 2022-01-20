@@ -54,7 +54,6 @@ def post(post_id):
           avg_rating = round(p[1], 1)
       except:
           avg_rating = 0
-
   if form.validate_on_submit():
     # Storing the user of a comment by retrieving it from the current_user 
     # taken from werkzeug documents by Pallet Projects 2007
@@ -78,7 +77,7 @@ def post(post_id):
       # https://stackoverflow.com/questions/11662244/sqlalchemy-error-handling-how-is-it-done/11662246
       db.session.rollback()
       # end of referenced code
-      flash('You have already rated this post', 'danger')
+      flash('You have already rated this post.', 'danger')
   return render_template('post.html',title=post.title,post=post, form=form, rating_form=rating_form, avg_rating=avg_rating)
 
 @app.route("/register",methods=['GET','POST'])
@@ -113,7 +112,7 @@ def login():
 @app.route("/logout")
 def logout():
   logout_user()
-  flash('You\'re now logged out. Thanks for your visit!', 'success')
+  flash('You have been logged out.', 'success')
   return redirect(url_for('home'))
 
 @app.route("/error") 
