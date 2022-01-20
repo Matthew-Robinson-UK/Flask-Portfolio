@@ -131,7 +131,9 @@ img {
 
 
 /*-----------Footer------------*/
-
+footer{
+    padding-top: 2vh;
+}
 .navbar-nav.bottom > li{
     padding-left: 6vw;
     padding-right: 6vw;

@@ -68,8 +68,17 @@ def post(post_id):
     rating = Rating(value = request.form['rating'], post=post, user=current_user._get_current_object())
     # end of referenced code.
     db.session.add(rating)
-    db.session.commit()
-    return redirect(url_for('.post', post_id=post.id))
+    try:
+      db.session.commit()
+      return redirect(url_for('.post', post_id=post.id))
+    except:
+      # Rollback SQL session after Integrity error
+      # taken from Stack Overflow post by Angelos 13 - 12 - 2016
+      # accessed 20 - 01 - 21
+      # https://stackoverflow.com/questions/11662244/sqlalchemy-error-handling-how-is-it-done/11662246
+      db.session.rollback()
+      # end of referenced code
+      flash('You have already rated this post', 'danger')
   return render_template('post.html',title=post.title,post=post, form=form, rating_form=rating_form, avg_rating=avg_rating)
 
 @app.route("/register",methods=['GET','POST'])
