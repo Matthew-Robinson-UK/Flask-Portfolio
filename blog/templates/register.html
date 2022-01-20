@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
+
 {% block content %}
+
 <form method="POST" action="">
   {{ form.csrf_token }}
   <p id="first_name_new">{{ form.username.label }} {{ form.username }}</p>
@@ -12,12 +14,15 @@
 {% for error in form.username.errors %}
   <span style="color: red;">[{{ error }}]</span>
 {% endfor %}
+
 {% for error in form.email.errors %}
   <span style="color: red;">[{{ error }}]</span>
 {% endfor %}
+
 {% for error in form.password.errors %}
   <span style="color: red;">[{{ error }}]</span>
 {% endfor %}
+
 {% for error in form.confirm_password.errors %}
   <span style="color: red;">[{{ error }}]</span>
 {% endfor %}

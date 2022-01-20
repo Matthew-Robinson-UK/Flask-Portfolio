@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
+
 {% block content %}
       <!-- code used for a star emoji -->
       <!-- taken from iemoji website 2010 -->
       <!-- accessed 05 - 01 - 2022 -->
       <!-- http://www.iemoji.com/view/emoji/586/animals-nature/white-medium-star -->
-<h3 class = 'post_title post'>"{{ post.title }}" &nbsp| Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;</h3>
+<h3 class = 'post_title post'>  "{{ post.title }}" &nbsp| Author: {{ post.user.username }} &nbsp | Post Rating {{ avg_rating }} &#x2b50;  </h3>
       <!-- end of referenced code. -->
 <Figure>
   <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
@@ -17,34 +18,40 @@
 <div class = "feedback">
   <form method="POST" action="" class = "post_rating">
     {{ form.csrf_token }}
-    <p>{{ rating_form.rating }}</p>
-    <p><input type="submit" value="Rate"></p>
+    <p> {{ rating_form.rating }} </p>
+    <p> <input type="submit" value="Rate">  </p>
   </form>  
 
   <form method="POST" action="" class ="comment_text">
     {{ form.csrf_token }}
-      <p>{{ form.comment_box }}</p>
-      <p><input type="submit" value="Comment"></p>
+      <p> {{ form.comment_box }}  </p>
+      <p> <input type="submit" value="Comment"> </p>
   </form>
 </div>
+
 {% endif %}  
 
 {% if current_user.is_anonymous %}
 
-<p class="feedback_sign_in">Please <a href="{{ url_for('register') }}"> Register  </a> or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment.</p>
+<p class="feedback_sign_in">Please <a href="{{ url_for('register') }}"> Register  </a> or <a href="{{ url_for('login') }}"> Login </a> to rate the post or add a comment. </p>
 
 {% endif %} 
+
   <div class="view_comments">
     <h3>Comments</h3>
       {% if post.comments %}
+
        {% for comment in post.comments %}
        -----------------------------------------------------------------
       <p class = comment_text>{{ comment.comment }} &nbsp 
-       <p> Posted by <span class = "comment_colour"> {{comment.user.email}} </span> </p>
+        <p> Posted by <span class = "comment_colour"> {{comment.user.email}} </span> </p>
         <P> Posted at <span class = "comment_colour"> {{comment.date}} </span> </P>
       </p>
+
         {% endfor %}
+
       {% endif %}  
+      
   </div>
 
 {% endblock content %}

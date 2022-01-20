@@ -1,11 +1,14 @@
 {% extends "layout.html" %}
+
 {% block content %}
-<h1>Contact Me</h1> 
+
+<h1>    Contact Me  </h1> 
 <!-- mailto link to send an email -->
 <!-- taken from Stack Overflow post by Ethan KoehlerBryant 26 - 05 - 2019 -->
 <!-- accessed 22 - 12 - 2021 -->
 <!-- https://stackoverflow.com/questions/19615166/sending-email-using-flask -->
-<p>Email: <a href="mailto:{{user_email.email}}">robinson.matthew2@gmail.com</a></p>
+<p> Email: <a href="mailto:{{user_email.email}}">robinson.matthew2@gmail.com </a> </p>
 <!-- end of referenced code -->
-<p>LinkedIn: <a href="{{user_linkedin.linkedin}}">www.linkedin.com/in/matthew-lee-robinson</a></p>
+<p> LinkedIn: <a href="{{user_linkedin.linkedin}}">www.linkedin.com/in/matthew-lee-robinson</a> </p>
+
 {% endblock content %}
