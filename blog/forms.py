@@ -14,7 +14,7 @@ class RegistrationForm(FlaskForm):
   # https://wtforms.readthedocs.io/en/2.3.x/validators/
   email = StringField('Email',validators=[DataRequired(),Email(message='Invalid email. Please check.', granular_message=False, check_deliverability=False, allow_smtputf8=True, allow_empty_local=False)])
   # end of referenced code.
-  password = PasswordField('Password',validators=[DataRequired(),Regexp('^[a-zA-Z0-9]{1,20}$',message='Your password contain invalid characters or is over 20 characters long.'),EqualTo('confirm_password', message='Passwords do not match. Please try again.')])
+  password = PasswordField('Password',validators=[DataRequired(),Regexp('^[a-zA-Z0-9]{1,20}$',message='Your password contains invalid characters or is over 20 characters long.'),EqualTo('confirm_password', message='Passwords do not match. Please try again.')])
   confirm_password = PasswordField('Confirm Password',validators=[DataRequired()])
   submit = SubmitField('Register')
 
